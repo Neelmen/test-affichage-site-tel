@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu du restaurant</title>
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <div class="side left"></div>
+
+        <div class="main-content">
+            <div class="logo-text">Le grangousier</div>
+
+            <h1>Notre Carte</h1>
+
+            <div id="navigation"></div>
+
+            <div id="menu"></div>
+
+            <div id="dish-detail" class="hidden"></div>
+
+        </div>
+
+        <div class="side right"></div>
+
+    </div>
+
+    <div id="back-button" class="hidden">RETOUR</div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
