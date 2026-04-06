@@ -54,7 +54,6 @@ function displayCategory(grouped) {
     Object.entries(grouped).forEach(([sub, dishes]) => {
         const title = document.createElement("h2");
         title.textContent = sub === "_no_sub" ? "La Sélection" : sub;
-        title.style.margin = "40px 0 20px";
         container.appendChild(title);
 
         const groupDiv = document.createElement("div");
@@ -64,15 +63,17 @@ function displayCategory(grouped) {
             const card = document.createElement("div");
             card.className = "card";
 
-            // Logique de prix pour la liste
             const displayPrice = (dish.price === 0 || dish.price === "0")
-                ? "Inclus avec le plat"
+                ? "Inclus"
                 : `${dish.price} €`;
 
+            // NOUVELLE STRUCTURE : Image gauche, Texte droite
             card.innerHTML = `
                 <img src="${getImageUrlFromPath(dish.image_path)}" alt="${dish.name}">
-                <h3>${dish.name}</h3>
-                <p style="padding-bottom:10px">${displayPrice}</p>
+                <div class="card-text-wrapper">
+                    <h3>${dish.name}</h3>
+                    <div class="price-tag">${displayPrice}</div>
+                </div>
             `;
             card.onclick = () => showDetail(dish);
             groupDiv.appendChild(card);
@@ -80,25 +81,24 @@ function displayCategory(grouped) {
         container.appendChild(groupDiv);
     });
 
-    window.scrollTo({ top: container.offsetTop - 20, behavior: 'smooth' });
+    // Scroll doux vers le menu
+    window.scrollTo({ top: container.offsetTop - 50, behavior: 'smooth' });
 }
 
 function showDetail(dish) {
-    // Logique de prix intelligente
     const displayPrice = (dish.price === 0 || dish.price === "0")
-        ? "Inclus avec le plat"
+        ? "Inclus"
         : `${dish.price} €`;
 
-    // Construction dynamique du contenu
     let extraContent = "";
 
     if (dish.description && dish.description.trim() !== "") {
-        extraContent += `<p style="margin-top:15px; opacity:0.9;">${dish.description}</p>`;
+        extraContent += `<p style="margin-top:20px;">${dish.description}</p>`;
     }
 
     if (dish.ingredients && dish.ingredients.trim() !== "") {
-        extraContent += `<p style="font-size:0.85rem; opacity:0.7; font-style:italic; margin-top:10px;">
-                            <b>Ingrédients :</b> ${dish.ingredients}
+        extraContent += `<p style="font-size:0.9rem; opacity:0.8; font-style:italic; margin-top:15px; border-top: 1px solid #e0dbd0; padding-top:10px;">
+                            ${dish.ingredients}
                          </p>`;
     }
 
@@ -107,7 +107,7 @@ function showDetail(dish) {
             <img src="${getImageUrlFromPath(dish.image_path)}" class="zoom-image">
             <div class="zoom-info" onclick="event.stopPropagation()">
                 <h2>${dish.name}</h2>
-                <div style="font-size:1.4rem; color:#f4ab30; margin-bottom:10px">${displayPrice}</div>
+                <div style="font-size:1.5rem; color:#c06c4c; font-family:'Cormorant Garamond', serif;">${displayPrice}</div>
                 ${extraContent}
             </div>
         </div>
@@ -140,30 +140,16 @@ backButton.onclick = () => {
     }
 };
 
-function addRippleEffect() {
-    document.addEventListener("mousedown", (e) => {
-        const btn = e.target.closest("button, #back-button");
-        if (!btn) return;
-        const ripple = document.createElement("span");
-        ripple.className = "ripple";
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.style.width = ripple.style.height = size + "px";
-        ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
-        ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-    });
-}
+// Effet de soulignement géré par CSS active class, suppression du ripple JS
 
 document.addEventListener("DOMContentLoaded", () => {
     const nav = document.getElementById("navigation");
     const labels = {
-        entree: "ENTRÉES",
-        plat: "PLATS",
-        accompagnement: "ACCOMPAGNEMENTS",
-        dessert: "DESSERTS",
-        boisson: "BOISSONS"
+        entree: "Entrées",
+        plat: "Plats",
+        accompagnement: "Garnitures",
+        dessert: "Desserts",
+        boisson: "Boissons"
     };
     Object.keys(labels).forEach(cat => {
         const btn = document.createElement("button");
@@ -172,5 +158,4 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.onclick = () => showCategory(cat);
         nav.appendChild(btn);
     });
-    addRippleEffect();
 });
