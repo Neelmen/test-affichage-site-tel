@@ -1,4 +1,4 @@
-// Configuration Supabase (Tes identifiants réels)
+// Configuration Supabase
 const SUPABASE_URL = "https://oaxpofkmtrudriyrbxvy.supabase.co";
 const BUCKET_NAME = "dishes-images";
 const client = supabase.createClient(SUPABASE_URL, "sb_publishable_W0bTuLBKIo_-tSVK_XfKYg_LScZ_5EY");
@@ -22,7 +22,6 @@ async function showCategory(category) {
     currentCategory = category;
     container.innerHTML = "";
 
-    // Activer l'état visuel du bouton
     document.querySelectorAll("#navigation button").forEach(btn => {
         btn.classList.toggle("active", btn.getAttribute('data-cat') === category);
     });
@@ -64,10 +63,16 @@ function displayCategory(grouped) {
         dishes.forEach(dish => {
             const card = document.createElement("div");
             card.className = "card";
+
+            // Logique de prix pour la liste
+            const displayPrice = (dish.price === 0 || dish.price === "0")
+                ? "Inclus avec le plat"
+                : `${dish.price} €`;
+
             card.innerHTML = `
                 <img src="${getImageUrlFromPath(dish.image_path)}" alt="${dish.name}">
                 <h3>${dish.name}</h3>
-                <p style="padding-bottom:10px">${dish.price} €</p>
+                <p style="padding-bottom:10px">${displayPrice}</p>
             `;
             card.onclick = () => showDetail(dish);
             groupDiv.appendChild(card);
@@ -79,14 +84,31 @@ function displayCategory(grouped) {
 }
 
 function showDetail(dish) {
-    // Zoom avec zone de clic invisible pour fermer
+    // Logique de prix intelligente
+    const displayPrice = (dish.price === 0 || dish.price === "0")
+        ? "Inclus avec le plat"
+        : `${dish.price} €`;
+
+    // Construction dynamique du contenu
+    let extraContent = "";
+
+    if (dish.description && dish.description.trim() !== "") {
+        extraContent += `<p style="margin-top:15px; opacity:0.9;">${dish.description}</p>`;
+    }
+
+    if (dish.ingredients && dish.ingredients.trim() !== "") {
+        extraContent += `<p style="font-size:0.85rem; opacity:0.7; font-style:italic; margin-top:10px;">
+                            <b>Ingrédients :</b> ${dish.ingredients}
+                         </p>`;
+    }
+
     detail.innerHTML = `
         <div class="zoom-container" onclick="closeDetail()">
             <img src="${getImageUrlFromPath(dish.image_path)}" class="zoom-image">
             <div class="zoom-info" onclick="event.stopPropagation()">
                 <h2>${dish.name}</h2>
-                <div style="font-size:1.4rem; color:#f4ab30; margin-bottom:10px">${dish.price} €</div>
-                <p>${dish.description || ""}</p>
+                <div style="font-size:1.4rem; color:#f4ab30; margin-bottom:10px">${displayPrice}</div>
+                ${extraContent}
             </div>
         </div>
     `;
