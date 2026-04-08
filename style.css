@@ -1,234 +1,219 @@
-/* ============================================================
-   Thème : Ambre Épicé & Animation Fluide
-   Polices : Playfair Display & Lato
-============================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
 
 :root {
-    --primary: #d35400; /* Orange terre cuite */
-    --secondary: #2c3e50; /* Bleu nuit profond */
-    --accent: #f39c12; /* Or ambré */
-    --bg-warm: #fff9f1;
+    --bg-color: #0f1016;
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --accent-color: #007AFF; /* Bleu iOS */
+    --accent-gradient: linear-gradient(135deg, #007AFF, #00C6FF);
+    --text-main: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Outfit', sans-serif;
     margin: 0;
-    padding: 20px;
-    color: #333;
-    line-height: 1.6;
     min-height: 100vh;
-    /* --- ANIMATION DE FOND --- */
-    background: linear-gradient(135deg, #fff9f1 0%, #ffe4d1 50%, #fff9f1 100%);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    /* Fond animé iOS 26 style */
+    background: radial-gradient(circle at 0% 0%, #1a1c2c 0%, #0f1016 100%);
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Animation de fond en arrière-plan */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.15), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(130, 0, 255, 0.1), transparent 40%);
+    animation: rotateBg 20s linear infinite;
+    z-index: -1;
 }
 
-/* --- LOGO ANIMÉ --- */
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.overlay-open { overflow: hidden; }
+
+.page {
+    width: min(1200px, 100%);
+    padding: 40px 20px;
+    z-index: 1;
+}
+
 .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
-    font-weight: 700;
-    color: var(--secondary);
+    font-weight: 800;
+    font-size: clamp(2rem, 8vw, 3rem);
+    letter-spacing: -1px;
+    background: linear-gradient(to bottom, #fff 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 5px;
-    text-shadow: 2px 2px 0px rgba(211, 84, 0, 0.1);
 }
 
 h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
     font-weight: 400;
-    color: var(--primary);
+    font-size: 1.1rem;
+    color: var(--text-dim);
     margin-bottom: 40px;
-    letter-spacing: 3px;
-    position: relative;
-    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 4px;
 }
 
-h1::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 20%;
-    width: 60%;
-    height: 1px;
-    background: var(--primary);
-}
-
-/* --- BOUTONS NAVIGATION STYLE --- */
+/* Navigation Style "Floating Pills" */
 #navigation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
     margin-bottom: 50px;
 }
 
 #navigation button {
-    width: 260px;
-    background: white;
-    border: 2px solid var(--primary);
-    padding: 15px;
-    border-radius: 50px; /* Boutons pillule */
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--primary);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 16px;
+    border-radius: 20px;
+    color: var(--text-main);
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 0px var(--primary);
-    position: relative;
-    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-#navigation button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 0px var(--primary);
-    background: var(--bg-warm);
+/* Effet de clic dynamique (iOS Feel) */
+#navigation button:active {
+    transform: scale(0.92);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 #navigation button.active {
-    background: var(--primary);
-    color: white !important;
-    transform: translateY(2px);
-    box-shadow: 0 0px 0px var(--primary);
+    background: var(--accent-gradient);
+    border-color: transparent;
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
 }
 
-/* --- CARTES DE PLATS --- */
+/* Cartes Menu */
 .category-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    max-width: 650px;
-    margin: 0 auto 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding-bottom: 100px;
+}
+
+h2 {
+    grid-column: 1 / -1;
+    text-align: left;
+    font-size: 1.8rem;
+    margin-top: 40px;
+    font-weight: 700;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
 }
 
 .card {
-    background: white;
-    border-radius: 25px; /* Plus arrondi pour la convivialité */
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
     overflow: hidden;
-    width: 100%;
+    border: 1px solid var(--glass-border);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(211, 84, 0, 0.1);
-    transition: all 0.4s ease;
-    border: 1px solid rgba(211, 84, 0, 0.1);
 }
 
 .card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 45px rgba(211, 84, 0, 0.2);
+    transform: translateY(-10px);
 }
 
 .card img {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 16/10;
     object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.card:hover img {
-    transform: scale(1.05);
-}
-
-.card-content {
-    padding: 25px;
-    background: white;
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 .card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin: 0 0 10px;
-    color: var(--secondary);
+    padding: 0 20px;
+    margin: 15px 0 5px;
+    font-size: 1.3rem;
 }
 
 .card p {
-    font-size: 1.3rem;
-    color: var(--primary);
-    font-weight: 700;
-    margin: 0;
+    padding: 0 20px 20px;
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 1.1rem;
 }
 
-/* --- ZOOM PLAT (MODALE) --- */
+/* Detail Modal */
 #dish-detail {
     position: fixed;
     inset: 0;
-    background: rgba(44, 62, 80, 0.95); /* Fond bleu nuit transparent */
-    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
+    align-items: flex-end; /* Style feuille iOS qui monte */
 }
 
-.zoom-card {
-    background: var(--bg-warm);
-    width: 90%;
-    max-width: 500px;
-    border-radius: 30px;
+#dish-detail.active { display: flex; }
+
+.zoom-container {
+    width: 100%;
+    background: #1c1c1e;
+    border-radius: 40px 40px 0 0;
     padding: 30px;
-    text-align: left;
     max-height: 90vh;
     overflow-y: auto;
-    position: relative;
-    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }
 
-.zoom-card img {
+.zoom-image {
     width: 100%;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-.close-zoom {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    padding: 15px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* --- BOUTON RETOUR --- */
+/* Bouton Retour Dynamique */
 #back-button {
     position: fixed;
-    bottom: 25px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--secondary);
-    color: white !important;
-    padding: 15px 40px;
-    border-radius: 50px;
+    background: var(--text-main);
+    color: #000;
+    padding: 18px 40px;
+    border-radius: 100px;
     font-weight: 700;
-    text-transform: uppercase;
-    z-index: 100;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    z-index: 3000;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s;
     cursor: pointer;
+}
+
+#back-button:active {
+    transform: translateX(-50%) scale(0.9);
 }
 
 .hidden { display: none !important; }
-
-#menu h2 {
-    font-family: 'Playfair Display', serif;
-    color: var(--secondary);
-    font-size: 2rem;
-    margin: 50px 0 20px;
-}
