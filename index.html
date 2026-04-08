@@ -1,57 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Grangousier - Menu</title>
-
-    <!-- Favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Menu - Le Grangousier</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-
-    <!-- Google Fonts (Chargé en premier) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <!-- Feuille de style (Chargée après les polices) -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Supabase JS -->
+    <!-- Inclusion de la police Outfit pour le style iOS -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
 
+    <!-- Conteneur pour le motif de fond animé -->
+    <div class="animated-bg-pattern"></div>
+
     <div class="page">
-        <!-- Les div "side" servent pour les marges ou décors latéraux si besoin -->
-        <div class="side left"></div>
-
         <div class="main-content">
-            <!-- Texte LOGO -->
-            <div class="logo-text">Le Grangousier</div>
+            <div class="logo-text">Le grangousier</div>
 
-            <!-- Titre de section -->
             <h1>Notre Carte</h1>
 
-            <!-- Navigation principale (Générée par app.js) -->
-            <nav id="navigation"></nav>
+            <div id="navigation"></div>
 
-            <!-- Conteneur des plats (Généré par app.js) -->
-            <section id="menu"></section>
+            <div id="menu"></div>
 
-            <!-- Overlay Fiche détaillée (Modale) -->
             <div id="dish-detail" class="hidden"></div>
         </div>
-
-        <div class="side right"></div>
     </div>
 
-    <!-- Bouton retour (Flottant) -->
-    <div id="back-button" class="hidden">← Retour</div>
+    <div id="back-button" class="hidden">RETOUR</div>
 
-    <!-- Script Application -->
     <script src="app.js"></script>
-
 </body>
 </html>
