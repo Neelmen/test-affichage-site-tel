@@ -3,11 +3,11 @@
 :root {
     --bg-color: #0f1016;
     --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --accent-color: #007AFF; /* Bleu iOS */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-color: #007AFF;
     --accent-gradient: linear-gradient(135deg, #007AFF, #00C6FF);
     --text-main: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.6);
+    --text-dim: rgba(255, 255, 255, 0.5);
 }
 
 * {
@@ -24,19 +24,18 @@ body {
     display: flex;
     justify-content: center;
     overflow-x: hidden;
-    /* Fond animé iOS 26 style */
+    /* Fond animé subtil */
     background: radial-gradient(circle at 0% 0%, #1a1c2c 0%, #0f1016 100%);
 }
 
-/* Animation de fond en arrière-plan */
 body::before {
     content: "";
     position: fixed;
     top: -50%; left: -50%;
     width: 200%; height: 200%;
-    background: radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.15), transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(130, 0, 255, 0.1), transparent 40%);
-    animation: rotateBg 20s linear infinite;
+    background: radial-gradient(circle at 30% 30%, rgba(0, 122, 255, 0.1), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(130, 0, 255, 0.08), transparent 40%);
+    animation: rotateBg 25s linear infinite;
     z-index: -1;
 }
 
@@ -48,37 +47,38 @@ body::before {
 .overlay-open { overflow: hidden; }
 
 .page {
-    width: min(1200px, 100%);
-    padding: 40px 20px;
+    width: min(600px, 100%); /* Largeur optimisée pour une liste lisible */
+    padding: 40px 15px;
     z-index: 1;
 }
 
 .logo-text {
     font-weight: 800;
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(2rem, 8vw, 2.8rem);
     letter-spacing: -1px;
     background: linear-gradient(to bottom, #fff 0%, #aaa 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    margin-bottom: 5px;
+    text-align: center;
 }
 
 h1 {
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: var(--text-dim);
     margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 4px;
+    text-align: center;
 }
 
-/* Navigation Style "Floating Pills" */
+/* Navigation en liste de boutons */
 #navigation {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
 }
 
 #navigation button {
@@ -86,90 +86,78 @@ h1 {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    padding: 16px;
-    border-radius: 20px;
+    padding: 18px;
+    border-radius: 18px;
     color: var(--text-main);
     font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-/* Effet de clic dynamique (iOS Feel) */
-#navigation button:active {
-    transform: scale(0.92);
-    background: rgba(255, 255, 255, 0.15);
 }
 
 #navigation button.active {
     background: var(--accent-gradient);
     border-color: transparent;
-    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
 }
 
-/* Cartes Menu */
+/* Organisation en LISTE */
 .category-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column; /* Force le mode liste */
+    gap: 20px;
+    padding-bottom: 120px;
 }
 
 h2 {
-    grid-column: 1 / -1;
     text-align: left;
-    font-size: 1.8rem;
-    margin-top: 40px;
+    font-size: 1.5rem;
+    margin: 40px 0 15px;
     font-weight: 700;
-    border-left: 4px solid var(--accent-color);
-    padding-left: 15px;
+    color: var(--text-main);
 }
 
 .card {
+    display: flex; /* Aligne image et texte horizontalement si besoin, ou reste vertical */
+    flex-direction: column;
     background: var(--glass-bg);
     backdrop-filter: blur(15px);
-    border-radius: 30px;
+    border-radius: 24px;
     overflow: hidden;
     border: 1px solid var(--glass-border);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
-}
-
-.card:hover {
-    transform: translateY(-10px);
+    transition: transform 0.2s ease;
 }
 
 .card img {
     width: 100%;
-    aspect-ratio: 16/10;
+    aspect-ratio: 16/9;
     object-fit: cover;
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 .card h3 {
-    padding: 0 20px;
-    margin: 15px 0 5px;
-    font-size: 1.3rem;
+    padding: 15px 20px 5px;
+    margin: 0;
+    font-size: 1.2rem;
 }
 
 .card p {
     padding: 0 20px 20px;
+    margin: 0;
     color: var(--accent-color);
     font-weight: 600;
-    font-size: 1.1rem;
 }
 
-/* Detail Modal */
+/* Detail Sheet */
 #dish-detail {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 2000;
     display: none;
-    align-items: flex-end; /* Style feuille iOS qui monte */
+    align-items: flex-end;
 }
 
 #dish-detail.active { display: flex; }
@@ -177,11 +165,11 @@ h2 {
 .zoom-container {
     width: 100%;
     background: #1c1c1e;
-    border-radius: 40px 40px 0 0;
-    padding: 30px;
-    max-height: 90vh;
+    border-radius: 30px 30px 0 0;
+    padding: 20px;
+    max-height: 92vh;
     overflow-y: auto;
-    animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: slideUp 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @keyframes slideUp {
@@ -191,11 +179,9 @@ h2 {
 
 .zoom-image {
     width: 100%;
-    border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-radius: 20px;
 }
 
-/* Bouton Retour Dynamique */
 #back-button {
     position: fixed;
     bottom: 30px;
@@ -203,17 +189,12 @@ h2 {
     transform: translateX(-50%);
     background: var(--text-main);
     color: #000;
-    padding: 18px 40px;
+    padding: 16px 40px;
     border-radius: 100px;
     font-weight: 700;
     z-index: 3000;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     cursor: pointer;
-}
-
-#back-button:active {
-    transform: translateX(-50%) scale(0.9);
 }
 
 .hidden { display: none !important; }
