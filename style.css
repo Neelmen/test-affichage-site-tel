@@ -1,313 +1,315 @@
-/* ============================================================
-   Thème : Bistronomie Raffinée (Lisibilité Optimisée)
-   Palette : Lait d'Avoine, Terre Cuite, Anthracite Profond
-============================================================== */
-
-/* Importation des graisses 400, 500 et 600 pour garantir un rendu net */
-@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
+/* ===============================
+   Styles généraux client
+================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400&display=swap');
 body {
-    font-family: 'Tenor Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     margin: 0;
-    min-height: 100vh;
-    background-color: #fdfcf9; /* Lait d'avoine */
-    color: #1a1a1a; /* Anthracite plus sombre pour contraste */
-    padding: 20px 15px;
-    display: flex;
-    justify-content: center;
+    padding: 20px;
+    background: #e1c699;
     text-align: center;
-    overflow-x: hidden;
-    letter-spacing: 0.02em;
-}
-
-.overlay-open {
-    overflow: hidden;
-}
-
-/* --- CONTENEUR PRINCIPAL --- */
-.page {
-    width: min(1200px, 100%);
-    background: #fff;
-    border-radius: 4px;
-    padding: 60px 20px;
-    border: 1px solid #e0dbd0;
-    margin-bottom: 140px;
-}
-
-/* --- LOGO & TITRES --- */
-.logo-text {
-    font-family: 'Tenor Sans', sans-serif;
-    text-transform: uppercase;
-    font-size: clamp(1.4rem, 6vw, 2.2rem);
-    font-weight: 400;
-    color: #a67c52;
-    letter-spacing: 0.2em;
+    color: #333;
+    line-height: 1.6;
 }
 
 h1 {
-    margin: 15px 0 60px;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
-    color: #777;
-    text-transform: lowercase;
-    position: relative;
-    display: inline-block;
-}
-
-h1::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 25%;
-    width: 50%;
-    height: 1px;
-    background-color: #e0dbd0;
-}
-
-h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: 2.2rem;
-    color: #a67c52;
-    margin-top: 50px;
     margin-bottom: 30px;
+font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; /* Très fin pour l'élégance */
+    font-size: 2.5rem;
+    color: #222;
+   letter-spacing: 6px;
 }
 
-/* --- NAVIGATION --- */
+/* ===============================
+   Navigation principale
+================================= */
 #navigation {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 50px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#navigation button {
-    background: none;
-    border: none;
-    padding: 10px 15px;
-    color: #444;
-    text-transform: uppercase;
-    font-family: 'Tenor Sans', sans-serif;
-    font-size: 0.95rem; /* Plus grand */
-    font-weight: 500;   /* Plus gras */
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-#navigation button:hover,
-#navigation button.active {
-    color: #c06c4c;
-}
-
-#navigation button::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: #c06c4c;
-    transition: all 0.4s ease;
-}
-
-#navigation button:hover::after,
-#navigation button.active::after {
-    width: 100%;
-    left: 0;
-}
-
-/* --- GRILLE DES PLATS --- */
-.category-group {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 700px; /* Un peu plus large pour le confort */
-    margin: 0 auto;
-}
-
-.card {
-    background: #fff;
-    width: 100%;
-    cursor: pointer;
-    border: none;
-    border-bottom: 1px solid #f0eee9;
-    display: flex;
-    align-items: center;
-    padding: 25px 0; /* Plus d'espace pour respirer */
-    transition: background 0.3s ease;
-    position: relative;
+    gap: 15px;
     z-index: 2;
 }
 
-.card:last-child {
-    border-bottom: none;
+#navigation button {
+    width: 220px;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 2;
+    color: #333 !important;
+    -webkit-appearance: none;
+    transition: all 0.25s ease;
+}
+
+#navigation button:hover {
+    background: #e63946;
+    color: white !important;
+}
+
+#navigation button.active {
+    background: #e63946;
+    color: white !important;
+}
+
+/* ===============================
+   Sous-menu (sous-catégories)
+================================= */
+#menu button {
+    width: 220px;
+    padding: 15px;
+    font-size: 1.05rem;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    color: #333 !important;
+    cursor: pointer;
+    margin: 10px auto 30px;
+    display: block;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 2;
+    -webkit-appearance: none;
+    font-family: inherit;
+    transition: all 0.25s ease;
+}
+
+#menu button:hover {
+    background: #E69830;
+    color: white !important;
+}
+
+/* ===============================
+   Cartes de plats
+================================= */
+.card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 260px;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
-    background-color: #fdfcf9;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.35);
 }
 
 .card img {
-    width: 90px; /* Image légèrement agrandie */
-    height: 90px;
-    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 50%;
-    margin-left: 10px;
-    margin-right: 25px;
-    border: 1px solid #f0eee9;
-}
-
-.card-text-wrapper {
-    flex: 1;
-    text-align: left;
-    padding-right: 15px;
+    border-radius: 10px 10px 0 0;
 }
 
 .card h3 {
-    margin: 0 0 5px;
-    color: #1a1a1a;
-    font-family: 'Tenor Sans', sans-serif;
-    font-weight: 500; /* Plus de graisse */
-    font-size: 1.2rem; /* Plus grand pour lisibilité */
-    letter-spacing: 0.02em;
-    line-height: 1.2;
+   font-family: 'Cormorant Garamond', serif;
+    margin: 10px;
+   letter-spacing: 1.5px;
+    font-size: 1.2rem;
+    font-weight: 400;
+   text-transform: uppercase;
+    color: #111;
 }
 
-.card .price-tag {
-    color: #b05635; /* Terre cuite renforcée */
-    font-family: 'Tenor Sans', sans-serif;
-    font-weight: 600; /* Bien visible */
-    font-size: 1.1rem;
+.card p {
+    margin: 5px 10px;
+    font-size: 0.95rem;
+    color: #555;
+   font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+   letter-spacing: 0.5px;
 }
 
-/* --- ZOOM PLAT --- */
+/* ===============================
+   Fiche détaillée du plat (zoom card)
+================================= */
 #dish-detail {
     position: fixed;
-    inset: 0;
-    background-color: #fdfcf9;
-    z-index: 1500;
-    display: none;
-    flex-direction: column;
-}
-
-#dish-detail.active {
-    display: flex;
-    animation: fadeIn 0.4s ease;
-}
-
-.zoom-container {
-    flex: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 30px;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    z-index: 10000;
+    padding: 0;
     overflow-y: auto;
 }
 
-.zoom-image {
-    width: 100%;
+#dish-detail .card {
+    width: calc(100% - 20px);
     max-width: 500px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #e0dbd0;
+    margin: 10px 0;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.zoom-info {
-    margin-top: 35px;
-    max-width: 500px;
+#dish-detail .card img {
     width: 100%;
-    text-align: left;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-.zoom-info h2 {
-    color: #a67c52;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 2.6rem;
-    margin: 0 0 15px;
-}
-
-.zoom-info p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem; /* Lecture confortable */
-    line-height: 1.5;
+#dish-detail .card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
     color: #222;
 }
 
-/* --- BOUTON RETOUR --- */
+#dish-detail .card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+    text-align: left;
+    width: 100%;
+}
+
+/* Cache l'overlay par défaut */
+.hidden {
+    display: none !important;
+}
+
+/* ===============================
+   Bouton retour
+================================= */
 #back-button {
     position: fixed;
+    bottom: 20px;
     left: 50%;
-    bottom: 40px;
     transform: translateX(-50%);
-    width: min(280px, 85%);
-    background: #fff;
-    color: #c06c4c !important;
-    padding: 16px;
-    border-radius: 4px;
-    font-family: 'Tenor Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    z-index: 2000;
+    background: #e63946;
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
     cursor: pointer;
-    border: 2px solid #c06c4c; /* Plus épais */
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    z-index: 10001;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }
 
-#back-button:hover {
-    background-color: #c06c4c;
-    color: #fff !important;
+/* ===============================
+   Espace bas du menu
+================================= */
+#menu {
+    padding-bottom: 120px;
+    padding-top: 30px;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.category-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    max-width: 500px;
+    margin: 0 auto 30px;
 }
 
-/* Adaptations Mobile */
-@media (max-width: 720px) {
-    .page {
-        padding: 30px 10px;
-        border: none;
-    }
+#menu h2 {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+   font-style: italic;
+    font-size: 1.3rem;
+    color: #222;
+    letter-spacing: 0.5px;
+}
 
-    #navigation button {
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid #f0eee9;
-    }
+/* Safari fallback pour tous les boutons et inputs */
+button, input, select, textarea {
+    -webkit-appearance: none;
+    color: inherit !important;
+    font-family: inherit;
+}
 
-    .card {
-        padding: 20px 0;
-    }
+/* Désactive le hover sur les boutons quand la classe no-hover est active */
+#navigation.no-hover button:hover {
+    background: white;
+    color: #333 !important;
+}
 
-    .card img {
-        width: 75px;
-        height: 75px;
-        margin-right: 15px;
-    }
+/*Le texte TITRE avec effet du menu*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&display=swap');
+.logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: none;
+    color: #333; /* Couleur de base du texte */
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    
+    /* Préparation du dégradé pour l'effet de reflet */
+    background: linear-gradient(
+        to right, 
+        #333 0%, 
+        #333 40%, 
+        #ffffff 50%, 
+        #333 60%, 
+        #333 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text; /* Pour Chrome/Safari */
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+    /* Animation */
+    animation: shine 3s linear infinite;
+}
 
-    .card h3 {
-        font-size: 1.1rem;
+/* L'animation qui déplace le dégradé */
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255, 255, 255); /* orange */
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
     }
 }
