@@ -117,12 +117,10 @@ function displayCategory(grouped) {
  * Affiche les détails d'un plat dans la modal iOS-style (Bottom Sheet)
  */
 function showDetail(dish) {
-    // Logique de prix
     const displayPrice = (dish.price === 0 || dish.price === "0")
         ? "Inclus"
         : `${dish.price} €`;
 
-    // Construction dynamique du contenu supplémentaire
     let extraContent = "";
     if (dish.description) {
         extraContent += `<p style="margin-top:20px; font-size:1.1rem; line-height:1.6; color: rgba(255,255,255,0.85);">${dish.description}</p>`;
@@ -133,40 +131,34 @@ function showDetail(dish) {
                          </p>`;
     }
 
-    // Injection du contenu dans la modal
+    // Modification ici : ajout de onclick="closeDetail()" sur le zoom-container
+    // et stopPropagation sur le bloc texte si on veut quand même pouvoir copier le texte sans fermer.
     detail.innerHTML = `
-        <div class="zoom-container">
-            <!-- Petite barre de "grab" iOS -->
+        <div class="zoom-container" onclick="closeDetail()">
             <div style="width:40px; height:5px; background:rgba(255,255,255,0.2); border-radius:10px; margin: 0 auto 20px;"></div>
             
             <img src="${getImageUrlFromPath(dish.image_path)}" class="zoom-image">
             
-            <div class="zoom-info">
-                <!-- On surcharge le style h2 pour le détail (pas de bordure gauche) -->
+            <div class="zoom-info" onclick="event.stopPropagation()">
                 <h2 style="border:none; padding:0; margin: 20px 0 5px; font-size:1.8rem;">${dish.name}</h2>
                 <div style="font-size:1.5rem; font-weight:700; color: var(--accent-color)">${displayPrice}</div>
                 ${extraContent}
             </div>
             
-            <!-- Spacer pour ne pas que le contenu soit caché par le bouton retour -->
             <div style="height:100px;"></div> 
         </div>
     `;
     
-    // Affichage de la modal avec animation CSS
     detail.classList.add("active");
     detail.classList.remove("hidden");
-    document.body.classList.add("overlay-open"); // Bloque le scroll du fond
+    document.body.classList.add("overlay-open");
     
-    // Fermeture en cliquant sur l'arrière-plan (l'overlay sombre)
+    // On garde aussi le clic sur l'arrière-plan vide
     detail.onclick = (e) => {
         if (e.target === detail) closeDetail();
     };
 }
 
-/**
- * Ferme la vue détaillée
- */
 function closeDetail() {
     detail.classList.remove("active");
     // Laisse le temps à l'animation CSS de se finir avant de cacher complètement
